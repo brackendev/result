@@ -14,7 +14,7 @@ class Result<Success, Failure> {
     try {
       _success = catching();
     } catch (e) {
-      _failure = e;
+      _failure = e as Failure?;
     }
   }
 
@@ -34,7 +34,8 @@ class Result<Success, Failure> {
     }
   }
 
-  flatmap<NewSuccess>(Result<NewSuccess, Failure> Function(Success?) transform) {
+  flatmap<NewSuccess>(
+      Result<NewSuccess, Failure> Function(Success?) transform) {
     if (_success != null) {
       return Result.success(transform(_success));
     } else {
