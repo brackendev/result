@@ -5,7 +5,7 @@ main() {
   print(s.get()); // 2
 
   var ss = s.map(
-    (x) => x + 1
+    (x) => x! + 1
   );
   print(ss.get()); // 3
  
@@ -22,7 +22,7 @@ main() {
     throw Exception("work exception");
   }
   try {
-    var r = Result(worker());
+    var r = Result(worker()!);
     r = r.get();
   } catch (e) {
     print(e); // work exception

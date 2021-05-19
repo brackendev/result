@@ -1,6 +1,6 @@
 class Result<Success, Failure> {
-  Success _success;
-  Failure _failure;
+  Success? _success;
+  Failure? _failure;
 
   Result._({success, failure}) {
     this._success = success;
@@ -18,7 +18,7 @@ class Result<Success, Failure> {
     }
   }
 
-  map<NewSuccess>(NewSuccess Function(Success) transform) {
+  map<NewSuccess>(NewSuccess Function(Success?) transform) {
     if (_success != null) {
       return new Result.success(transform(_success));
     } else {
@@ -26,7 +26,7 @@ class Result<Success, Failure> {
     }
   }
 
-  mapError<NewFailure>(NewFailure Function(Failure) transform) {
+  mapError<NewFailure>(NewFailure Function(Failure?) transform) {
     if (_failure != null) {
       return new Result.failure(transform(_failure));
     } else {
@@ -34,7 +34,7 @@ class Result<Success, Failure> {
     }
   }
 
-  flatmap<NewSuccess>(Result<NewSuccess, Failure> Function(Success) transform) {
+  flatmap<NewSuccess>(Result<NewSuccess, Failure> Function(Success?) transform) {
     if (_success != null) {
       return Result.success(transform(_success));
     } else {
@@ -43,7 +43,7 @@ class Result<Success, Failure> {
   }
 
   flatMapError<NewFailure>(
-      Result<Success, NewFailure> Function(Failure) transform) {
+      Result<Success, NewFailure> Function(Failure?) transform) {
     if (_failure != null) {
       return Result.failure(transform(_failure));
     } else {
@@ -51,11 +51,11 @@ class Result<Success, Failure> {
     }
   }
 
-  Success get() {
+  Success? get() {
     if (_success != null) {
       return _success;
     } else {
-      throw _failure;
+      throw _failure!;
     }
   }
 }
